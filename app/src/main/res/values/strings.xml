@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JsonREST</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_tab1">Tab1</string>
+    <string name="title_tab2">Tab2</string>
+    <string name="title_tab3">Tab3</string>
+</resources>
