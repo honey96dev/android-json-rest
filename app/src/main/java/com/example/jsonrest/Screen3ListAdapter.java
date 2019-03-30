@@ -3,10 +3,13 @@ package com.example.jsonrest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -17,7 +20,7 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
 
     private ArrayList<Screen3ListDataModel> dataSet;
     Context mContext;
-    int mLastSelected = -1;
+    static int mLastSelected = -1;
 
     public int getSelectedIndex() {
         return mLastSelected;
@@ -102,19 +105,65 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
             @Override
             public void onClick(View v) {
                 Object object = getItem(position);
-                Screen3ListDataModel dataModel = (Screen3ListDataModel) object;
-                dataModel.checked = true;
+                final Screen3ListDataModel dataModel = (Screen3ListDataModel) object;
 
-                if (position == mLastSelected) {
-                    return;
-                }
-                if (mLastSelected != -1) {
-                    object = getItem(mLastSelected);
-                    dataModel = (Screen3ListDataModel) object;
-                    dataModel.checked = false;
-                }
-                mLastSelected = position;
-                notifyDataSetChanged();
+                // Create a AlertDialog Builder.
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                // Set title, icon, can not cancel properties.
+                alertDialogBuilder.setTitle("Edit Server");
+                alertDialogBuilder.setIcon(android.R.drawable.ic_menu_edit);
+                alertDialogBuilder.setCancelable(true);
+
+                // Init popup dialog view and it's ui controls.
+                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+
+                // Inflate the popup dialog from a layout xml file.
+                View dialogView = layoutInflater.inflate(R.layout.screen3_edit_dialog, null);
+
+                // Get user input edittext and button ui controls in the popup dialog.
+                final EditText txtName = (EditText) dialogView.findViewById(R.id.name);
+                final EditText txtIp = (EditText) dialogView.findViewById(R.id.ip);
+                final EditText txtPort = (EditText) dialogView.findViewById(R.id.port);
+                Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+                Button btnSave = dialogView.findViewById(R.id.btnSave);
+
+                // Display values from the main activity list view in user input edittext.
+                txtName.setText(dataModel.getName());
+                txtIp.setText(dataModel.getIp());
+                txtPort.setText(dataModel.getPort());
+
+
+                // Set the inflated layout view object to the AlertDialog builder.
+                alertDialogBuilder.setView(dialogView);
+
+                // Create AlertDialog and show.
+                final AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+                // When user click the save user data button in the popup dialog.
+                btnSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dataModel.name = txtName.getText().toString();
+                        dataModel.ip = txtIp.getText().toString();
+                        dataModel.port = txtPort.getText().toString();
+                        alertDialog.cancel();
+                        Log.e(String.valueOf(position), String.valueOf(mLastSelected));
+                        if (position == mLastSelected) {
+                            G.SERVER_NAME = dataModel.name;
+                            G.SERVER_IP = dataModel.ip;
+                            G.SERVER_PORT = dataModel.port;
+                        }
+                        notifyDataSetChanged();
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.cancel();
+                    }
+                });
             }
         });
 
