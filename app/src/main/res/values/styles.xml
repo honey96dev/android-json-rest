@@ -8,4 +8,34 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+    <style name="PrimaryButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorAccent">@color/white</item>
+        <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
+    </style>
+    <style name="PrimaryFlatButton" parent="Theme.AppCompat.Light">
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--<item name="colorControlHighlight">@color/colorPrimary</item>-->
+    </style>
+
+    <style name="SecondaryButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">@color/colorSecondary</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+    <style name="SecondaryFlatButton" parent="Theme.AppCompat.Light">
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="colorAccent">@color/colorSecondary</item>
+    </style>
+
+    <style name="ErrorButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">@color/colorError</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+    <style name="ErrorFlatButton" parent="Theme.AppCompat.Light">
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="colorAccent">@color/colorError</item>
+    </style>
 </resources>

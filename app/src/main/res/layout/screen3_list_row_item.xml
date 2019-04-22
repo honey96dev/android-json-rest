@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_centerVertical="true" >
 
         <RadioButton
@@ -22,32 +23,30 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_toRightOf="@+id/checkbox_layout"
+        android:layout_toEndOf="@+id/checkbox_layout"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/name_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:text="Marshmallow"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/black" />
 
 
         <TextView
-            android:id="@+id/ip"
+            android:id="@+id/ip_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
             android:layout_marginTop="5dp"
             android:text="Android 6.0"
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/port"
+            android:id="@+id/port_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ip"
             android:layout_marginTop="5dp"
             android:text="Android 6.0"
             android:textColor="@android:color/black" />
@@ -60,18 +59,23 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true">
 
-        <ImageView
-            android:id="@+id/item_edit"
+        <ImageButton
+            android:id="@+id/item_edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_edit" />
+            android:tint="@color/white"
+            android:src="@drawable/ic_edit_accent_24dp"
+            android:theme="@style/PrimaryButton" />
 
-        <ImageView
-            android:id="@+id/item_delete"
+        <ImageButton
+            android:id="@+id/item_delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:src="@android:drawable/ic_menu_delete" />
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:tint="@color/white"
+            android:src="@drawable/ic_delete_accent_24dp"
+            android:theme="@style/ErrorButton" />
 
     </LinearLayout>
 

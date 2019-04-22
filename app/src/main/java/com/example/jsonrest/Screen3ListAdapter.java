@@ -58,11 +58,11 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.screen3_list_row_item, parent, false);
             viewHolder.radio = (RadioButton) convertView.findViewById(R.id.radio);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.txtIp = (TextView) convertView.findViewById(R.id.ip);
-            viewHolder.txtPort = (TextView) convertView.findViewById(R.id.port);
-            viewHolder.imgEdit = (ImageView) convertView.findViewById(R.id.item_edit);
-            viewHolder.imgDelete = (ImageView) convertView.findViewById(R.id.item_delete);
+            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name_edittext);
+            viewHolder.txtIp = (TextView) convertView.findViewById(R.id.ip_edittext);
+            viewHolder.txtPort = (TextView) convertView.findViewById(R.id.port_edittext);
+            viewHolder.imgEdit = (ImageView) convertView.findViewById(R.id.item_edit_button);
+            viewHolder.imgDelete = (ImageView) convertView.findViewById(R.id.item_delete_button);
 
             convertView.setTag(viewHolder);
         } else {
@@ -110,20 +110,20 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
                 // Create a AlertDialog Builder.
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
                 // Set title, icon, can not cancel properties.
-                alertDialogBuilder.setTitle("Edit Server");
-                alertDialogBuilder.setIcon(android.R.drawable.ic_menu_edit);
+                alertDialogBuilder.setTitle(R.string.title_edit_server);
+                alertDialogBuilder.setIcon(R.drawable.ic_edit_accent_24dp);
                 alertDialogBuilder.setCancelable(true);
 
                 // Init popup dialog view and it's ui controls.
                 LayoutInflater layoutInflater = LayoutInflater.from(getContext());
 
                 // Inflate the popup dialog from a layout xml file.
-                View dialogView = layoutInflater.inflate(R.layout.screen3_edit_dialog, null);
+                View dialogView = layoutInflater.inflate(R.layout.dialog_screen3_edit, null);
 
                 // Get user input edittext and button ui controls in the popup dialog.
-                final EditText txtName = (EditText) dialogView.findViewById(R.id.name);
-                final EditText txtIp = (EditText) dialogView.findViewById(R.id.ip);
-                final EditText txtPort = (EditText) dialogView.findViewById(R.id.port);
+                final EditText txtName = (EditText) dialogView.findViewById(R.id.name_edittext);
+                final EditText txtIp = (EditText) dialogView.findViewById(R.id.ip_edittext);
+                final EditText txtPort = (EditText) dialogView.findViewById(R.id.port_edittext);
                 Button btnCancel = dialogView.findViewById(R.id.btnCancel);
                 Button btnSave = dialogView.findViewById(R.id.btnSave);
 
@@ -172,9 +172,9 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 AlertDialog dialog = builder.create();
-                dialog.setIcon(android.R.drawable.ic_delete);
-                dialog.setTitle("Delete Item");
-                dialog.setMessage("Are you sure");
+                dialog.setIcon(R.drawable.ic_delete_accent_24dp);
+                dialog.setTitle(R.string.title_delete_item);
+                dialog.setMessage(getContext().getString(R.string.message_are_you_sure));
                 dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

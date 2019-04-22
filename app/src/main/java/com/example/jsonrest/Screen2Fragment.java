@@ -21,6 +21,8 @@ public class Screen2Fragment extends Fragment {
     EditText txt1;
     EditText txt2;
 
+    String toastMessage = "";
+
     private Handler updateUIHandler = null;
     private final static int MESSAGE_UPDATE_TEXT_CHILD_THREAD =1;
     private final static int MESSAGE_SHOW_TOAST_THREAD =2;
@@ -54,6 +56,7 @@ public class Screen2Fragment extends Fragment {
                     @Override
                     public void run() {
                         if (G.SERVER_IP == "" || G.SERVER_PORT == "") {
+                            toastMessage = getString(R.string.message_select_server);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
@@ -68,11 +71,28 @@ public class Screen2Fragment extends Fragment {
                         try {
                             result = request.execute(myUrl).get();
                             if (result != null) {
-                                Log.e("post-result1", result);
+                                toastMessage = getString(R.string.message_success_update);
+                                Message message = new Message();
+                                message.what = MESSAGE_SHOW_TOAST_THREAD;
+                                updateUIHandler.sendMessage(message);
+                                Log.e("post-result2", result);
+                            } else {
+                                toastMessage = getString(R.string.message_error_request_not_executed);
+                                Message message = new Message();
+                                message.what = MESSAGE_SHOW_TOAST_THREAD;
+                                updateUIHandler.sendMessage(message);
                             }
                         } catch (ExecutionException e) {
+                            toastMessage = getString(R.string.message_error_request_not_executed);
+                            Message message = new Message();
+                            message.what = MESSAGE_SHOW_TOAST_THREAD;
+                            updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         } catch (InterruptedException e) {
+                            toastMessage = getString(R.string.message_error_request_interrupted);
+                            Message message = new Message();
+                            message.what = MESSAGE_SHOW_TOAST_THREAD;
+                            updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         }
                     }
@@ -89,6 +109,7 @@ public class Screen2Fragment extends Fragment {
                     @Override
                     public void run() {
                         if (G.SERVER_IP == "" || G.SERVER_PORT == "") {
+                            toastMessage = getString(R.string.message_select_server);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
@@ -103,11 +124,28 @@ public class Screen2Fragment extends Fragment {
                         try {
                             result = request.execute(myUrl).get();
                             if (result != null) {
+                                toastMessage = getString(R.string.message_success_update);
+                                Message message = new Message();
+                                message.what = MESSAGE_SHOW_TOAST_THREAD;
+                                updateUIHandler.sendMessage(message);
                                 Log.e("post-result2", result);
+                            } else {
+                                toastMessage = getString(R.string.message_error_request_not_executed);
+                                Message message = new Message();
+                                message.what = MESSAGE_SHOW_TOAST_THREAD;
+                                updateUIHandler.sendMessage(message);
                             }
                         } catch (ExecutionException e) {
+                            toastMessage = getString(R.string.message_error_request_not_executed);
+                            Message message = new Message();
+                            message.what = MESSAGE_SHOW_TOAST_THREAD;
+                            updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         } catch (InterruptedException e) {
+                            toastMessage = getString(R.string.message_error_request_interrupted);
+                            Message message = new Message();
+                            message.what = MESSAGE_SHOW_TOAST_THREAD;
+                            updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         }
                     }
@@ -131,7 +169,7 @@ public class Screen2Fragment extends Fragment {
                         case MESSAGE_UPDATE_TEXT_CHILD_THREAD:
                             break;
                         case MESSAGE_SHOW_TOAST_THREAD:
-                            Toast.makeText(getContext(), "Select Server", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
                             break;
                     }
                 }

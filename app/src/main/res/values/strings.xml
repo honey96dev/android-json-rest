@@ -6,4 +6,20 @@
     <string name="title_tab1">Tab1</string>
     <string name="title_tab2">Tab2</string>
     <string name="title_tab3">Tab3</string>
+    <string name="title_edit_server">Edit Server</string>
+    <string name="title_delete_item">Delete Item</string>
+
+    <string name="action_find">Find</string>
+    <string name="action_add">Add</string>
+    <string name="action_delete_all">Delete all</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_load">Load</string>
+
+    <string name="message_are_you_sure">Are you sure?</string>
+    <string name="message_select_server">Select Server</string>
+    <string name="message_error_request_not_executed">Error: Http/Https request can not be executed</string>
+    <string name="message_error_request_interrupted">Error: Http/Https request execution was interrupted</string>
+    <string name="message_error_invalid_json">Error: Response Json is invalid</string>
+    <string name="message_success_update">Success to update</string>
 </resources>

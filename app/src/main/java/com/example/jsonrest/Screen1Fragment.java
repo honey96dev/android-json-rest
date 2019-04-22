@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,9 +28,11 @@ public class Screen1Fragment extends Fragment {
     String txt4Text = "";
     String txt5Text = "";
 
+    String toastMessage = "";
+
     private Handler updateUIHandler = null;
-    private final static int MESSAGE_UPDATE_TEXT_CHILD_THREAD =1;
-    private final static int MESSAGE_SHOW_TOAST_THREAD =2;
+    private final static int MESSAGE_UPDATE_TEXT_CHILD_THREAD = 1;
+    private final static int MESSAGE_SHOW_TOAST_THREAD = 2;
 
     public Screen1Fragment() {
     }
@@ -69,6 +70,7 @@ public class Screen1Fragment extends Fragment {
                     @Override
                     public void run() {
                         if (G.SERVER_IP == "" || G.SERVER_PORT == "") {
+                            toastMessage = getString(R.string.message_select_server);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
@@ -84,6 +86,10 @@ public class Screen1Fragment extends Fragment {
                         try {
                             result = request.execute(myUrl).get();
                             if (result == null) {
+                                toastMessage = getString(R.string.message_error_request_not_executed);
+                                Message message = new Message();
+                                message.what = MESSAGE_SHOW_TOAST_THREAD;
+                                updateUIHandler.sendMessage(message);
                                 return;
                             }
 
@@ -98,13 +104,25 @@ public class Screen1Fragment extends Fragment {
                             txt5Text = stats.getString("state5");
 
                             Message message = new Message();
-                            message.what = MESSAGE_UPDATE_TEXT_CHILD_THREAD;
+                            message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
                         } catch (ExecutionException e) {
+                            toastMessage = getString(R.string.message_error_request_not_executed);
+                            Message message = new Message();
+                            message.what = MESSAGE_SHOW_TOAST_THREAD;
+                            updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         } catch (InterruptedException e) {
+                            toastMessage = getString(R.string.message_error_request_interrupted);
+                            Message message = new Message();
+                            message.what = MESSAGE_SHOW_TOAST_THREAD;
+                            updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         } catch (JSONException e) {
+                            toastMessage = getString(R.string.message_error_invalid_json);
+                            Message message = new Message();
+                            message.what = MESSAGE_SHOW_TOAST_THREAD;
+                            updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         }
                     }
@@ -116,10 +134,8 @@ public class Screen1Fragment extends Fragment {
         return rootView;
     }
 
-    private void createUpdateUiHandler()
-    {
-        if(updateUIHandler == null)
-        {
+    private void createUpdateUiHandler() {
+        if (updateUIHandler == null) {
             updateUIHandler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
@@ -133,7 +149,7 @@ public class Screen1Fragment extends Fragment {
                             txt5.setText(txt5Text);
                             break;
                         case MESSAGE_SHOW_TOAST_THREAD:
-                            Toast.makeText(getContext(), "Select Server", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
                             break;
                     }
                 }

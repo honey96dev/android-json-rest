@@ -3,30 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="top"
     android:orientation="vertical"
     tools:context=".Screen1Fragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:drawableStart="@drawable/ic_play_arrow_white_24dp"
+            android:drawableLeft="@drawable/ic_play_arrow_white_24dp"
+            android:text="@string/action_load"
+            android:textSize="@dimen/dimen_textSize6"
+            android:theme="@style/PrimaryButton" />
 
         <EditText
             android:id="@+id/txt1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:editable="false"
             android:ems="10"
             android:inputType="none"
-            android:editable="false"
             android:text="" />
 
         <EditText
@@ -34,9 +39,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:editable="false"
             android:ems="10"
             android:inputType="none"
-            android:editable="false"
             android:text="" />
 
         <EditText
@@ -44,9 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:editable="false"
             android:ems="10"
             android:inputType="none"
-            android:editable="false"
             android:text="" />
 
         <EditText
@@ -54,9 +59,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:editable="false"
             android:ems="10"
             android:inputType="none"
-            android:editable="false"
             android:text="" />
 
         <EditText
@@ -64,9 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:editable="false"
             android:ems="10"
             android:inputType="none"
-            android:editable="false"
             android:text="" />
     </LinearLayout>
 
