@@ -86,7 +86,7 @@ public class Screen1Fragment extends Fragment {
                         try {
                             result = request.execute(myUrl).get();
                             if (result == null) {
-                                toastMessage = getString(R.string.message_error_request_not_executed);
+                                toastMessage = getString(R.string.error_request_not_executed);
                                 Message message = new Message();
                                 message.what = MESSAGE_SHOW_TOAST_THREAD;
                                 updateUIHandler.sendMessage(message);
@@ -107,19 +107,19 @@ public class Screen1Fragment extends Fragment {
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
                         } catch (ExecutionException e) {
-                            toastMessage = getString(R.string.message_error_request_not_executed);
+                            toastMessage = getString(R.string.error_request_not_executed);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         } catch (InterruptedException e) {
-                            toastMessage = getString(R.string.message_error_request_interrupted);
+                            toastMessage = getString(R.string.error_request_interrupted);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         } catch (JSONException e) {
-                            toastMessage = getString(R.string.message_error_invalid_json);
+                            toastMessage = getString(R.string.error_invalid_json);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);

@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
+public class Screen3ListAdapter extends ArrayAdapter<ServerDataModel> {
 
-    private ArrayList<Screen3ListDataModel> dataSet;
+    private ArrayList<ServerDataModel> dataSet;
     Context mContext;
     static int mLastSelected = -1;
 
@@ -32,11 +32,11 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
         TextView txtName;
         TextView txtIp;
         TextView txtPort;
-        ImageView imgEdit;
-        ImageView imgDelete;
+        ImageView editButton;
+        ImageView deleteButton;
     }
 
-    public Screen3ListAdapter(Context context, ArrayList<Screen3ListDataModel> data) {
+    public Screen3ListAdapter(Context context, ArrayList<ServerDataModel> data) {
         super(context, R.layout.screen3_list_row_item, data);
         this.dataSet = data;
         this.mContext = context;
@@ -46,7 +46,7 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        final Screen3ListDataModel dataModel = getItem(position);
+        final ServerDataModel dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
@@ -61,8 +61,8 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.name_edittext);
             viewHolder.txtIp = (TextView) convertView.findViewById(R.id.ip_edittext);
             viewHolder.txtPort = (TextView) convertView.findViewById(R.id.port_edittext);
-            viewHolder.imgEdit = (ImageView) convertView.findViewById(R.id.item_edit_button);
-            viewHolder.imgDelete = (ImageView) convertView.findViewById(R.id.item_delete_button);
+            viewHolder.editButton = (ImageView) convertView.findViewById(R.id.item_edit_button);
+            viewHolder.deleteButton = (ImageView) convertView.findViewById(R.id.item_delete_button);
 
             convertView.setTag(viewHolder);
         } else {
@@ -82,7 +82,7 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
             public void onClick(View v) {
 //                int position = (Integer) v.getTag();
                 Object object = getItem(position);
-                Screen3ListDataModel dataModel = (Screen3ListDataModel) object;
+                ServerDataModel dataModel = (ServerDataModel) object;
                 dataModel.checked = true;
 
                 if (position == mLastSelected) {
@@ -90,7 +90,7 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
                 }
                 if (mLastSelected != -1) {
                     object = getItem(mLastSelected);
-                    dataModel = (Screen3ListDataModel) object;
+                    dataModel = (ServerDataModel) object;
                     dataModel.checked = false;
                 }
                 G.SERVER_NAME = dataModel.getName();
@@ -101,11 +101,11 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
             }
         });
 
-        viewHolder.imgEdit.setOnClickListener(new View.OnClickListener() {
+        viewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Object object = getItem(position);
-                final Screen3ListDataModel dataModel = (Screen3ListDataModel) object;
+                final ServerDataModel dataModel = (ServerDataModel) object;
 
                 // Create a AlertDialog Builder.
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
@@ -118,19 +118,19 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
                 LayoutInflater layoutInflater = LayoutInflater.from(getContext());
 
                 // Inflate the popup dialog from a layout xml file.
-                View dialogView = layoutInflater.inflate(R.layout.dialog_screen3_edit, null);
+                View dialogView = layoutInflater.inflate(R.layout.dialog_edit_server, null);
 
                 // Get user input edittext and button ui controls in the popup dialog.
-                final EditText txtName = (EditText) dialogView.findViewById(R.id.name_edittext);
-                final EditText txtIp = (EditText) dialogView.findViewById(R.id.ip_edittext);
-                final EditText txtPort = (EditText) dialogView.findViewById(R.id.port_edittext);
-                Button btnCancel = dialogView.findViewById(R.id.btnCancel);
-                Button btnSave = dialogView.findViewById(R.id.btnSave);
+                final EditText nameView = (EditText) dialogView.findViewById(R.id.name_edit_text);
+                final EditText ipView = (EditText) dialogView.findViewById(R.id.ip_edit_text);
+                final EditText portView = (EditText) dialogView.findViewById(R.id.port_edit_text);
+                Button btnCancel = dialogView.findViewById(R.id.cancel_button);
+                Button btnSave = dialogView.findViewById(R.id.save_button);
 
                 // Display values from the main activity list view in user input edittext.
-                txtName.setText(dataModel.getName());
-                txtIp.setText(dataModel.getIp());
-                txtPort.setText(dataModel.getPort());
+                nameView.setText(dataModel.getName());
+                ipView.setText(dataModel.getIp());
+                portView.setText(dataModel.getPort());
 
 
                 // Set the inflated layout view object to the AlertDialog builder.
@@ -144,9 +144,9 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dataModel.name = txtName.getText().toString();
-                        dataModel.ip = txtIp.getText().toString();
-                        dataModel.port = txtPort.getText().toString();
+                        dataModel.name = nameView.getText().toString();
+                        dataModel.ip = ipView.getText().toString();
+                        dataModel.port = portView.getText().toString();
                         alertDialog.cancel();
                         Log.e(String.valueOf(position), String.valueOf(mLastSelected));
                         if (position == mLastSelected) {
@@ -154,6 +154,7 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
                             G.SERVER_IP = dataModel.ip;
                             G.SERVER_PORT = dataModel.port;
                         }
+                        G.dbHelper.updateServer(dataModel);
                         notifyDataSetChanged();
                     }
                 });
@@ -167,7 +168,7 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
             }
         });
 
-        viewHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
+        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -175,7 +176,7 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
                 dialog.setIcon(R.drawable.ic_delete_accent_24dp);
                 dialog.setTitle(R.string.title_delete_item);
                 dialog.setMessage(getContext().getString(R.string.message_are_you_sure));
-                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                dialog.setButton(AlertDialog.BUTTON_POSITIVE, getContext().getString(R.string.action_yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (position == mLastSelected) {
@@ -187,7 +188,7 @@ public class Screen3ListAdapter extends ArrayAdapter<Screen3ListDataModel> {
                         notifyDataSetChanged();
                     }
                 });
-                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getContext().getString(R.string.action_no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

@@ -4,4 +4,5 @@ public class G {
     public static String SERVER_NAME = "";
     public static String SERVER_IP = "";
     public static String SERVER_PORT = "";
+    public static DatabaseHelper dbHelper;
 }

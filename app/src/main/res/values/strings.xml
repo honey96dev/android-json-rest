@@ -7,7 +7,18 @@
     <string name="title_tab2">Tab2</string>
     <string name="title_tab3">Tab3</string>
     <string name="title_edit_server">Edit Server</string>
+    <string name="title_add_server">Add Server</string>
     <string name="title_delete_item">Delete Item</string>
+    <string name="title_delete_all">Delete All</string>
+    <string name="title_name">Name</string>
+    <string name="title_ip">IP</string>
+    <string name="title_port">Port</string>
+
+    <string name="description_name">Name: </string>
+    <string name="description_ip">IP: </string>
+    <string name="description_port">Port: </string>
+
+    <string name="default_port">80</string>
 
     <string name="action_find">Find</string>
     <string name="action_add">Add</string>
@@ -15,11 +26,17 @@
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_load">Load</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
 
     <string name="message_are_you_sure">Are you sure?</string>
     <string name="message_select_server">Select Server</string>
-    <string name="message_error_request_not_executed">Error: Http/Https request can not be executed</string>
-    <string name="message_error_request_interrupted">Error: Http/Https request execution was interrupted</string>
-    <string name="message_error_invalid_json">Error: Response Json is invalid</string>
     <string name="message_success_update">Success to update</string>
+
+    <string name="error_request_not_executed">Error: Http/Https request can not be executed</string>
+    <string name="error_request_interrupted">Error: Http/Https request execution was interrupted</string>
+    <string name="error_invalid_json">Error: Response Json is invalid</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_ip">IP Address is invalid</string>
+    <string name="error_invalid_port">Port is invalid</string>
 </resources>

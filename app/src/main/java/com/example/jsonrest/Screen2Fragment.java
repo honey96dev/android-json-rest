@@ -12,9 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.concurrent.ExecutionException;
 
 public class Screen2Fragment extends Fragment {
@@ -77,19 +74,19 @@ public class Screen2Fragment extends Fragment {
                                 updateUIHandler.sendMessage(message);
                                 Log.e("post-result2", result);
                             } else {
-                                toastMessage = getString(R.string.message_error_request_not_executed);
+                                toastMessage = getString(R.string.error_request_not_executed);
                                 Message message = new Message();
                                 message.what = MESSAGE_SHOW_TOAST_THREAD;
                                 updateUIHandler.sendMessage(message);
                             }
                         } catch (ExecutionException e) {
-                            toastMessage = getString(R.string.message_error_request_not_executed);
+                            toastMessage = getString(R.string.error_request_not_executed);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         } catch (InterruptedException e) {
-                            toastMessage = getString(R.string.message_error_request_interrupted);
+                            toastMessage = getString(R.string.error_request_interrupted);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
@@ -130,19 +127,19 @@ public class Screen2Fragment extends Fragment {
                                 updateUIHandler.sendMessage(message);
                                 Log.e("post-result2", result);
                             } else {
-                                toastMessage = getString(R.string.message_error_request_not_executed);
+                                toastMessage = getString(R.string.error_request_not_executed);
                                 Message message = new Message();
                                 message.what = MESSAGE_SHOW_TOAST_THREAD;
                                 updateUIHandler.sendMessage(message);
                             }
                         } catch (ExecutionException e) {
-                            toastMessage = getString(R.string.message_error_request_not_executed);
+                            toastMessage = getString(R.string.error_request_not_executed);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
                             e.printStackTrace();
                         } catch (InterruptedException e) {
-                            toastMessage = getString(R.string.message_error_request_interrupted);
+                            toastMessage = getString(R.string.error_request_interrupted);
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
                             updateUIHandler.sendMessage(message);
