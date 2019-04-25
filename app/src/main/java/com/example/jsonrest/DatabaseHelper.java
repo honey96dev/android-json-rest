@@ -51,18 +51,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long insertServer(ServerDataModel server) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, server.name);
-        values.put(COLUMN_IP, server.ip);
-        values.put(COLUMN_PORT, server.port);
+        Cursor cursor = db.query(TABLE_SERVERS,
+                new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_IP, COLUMN_PORT},
+                String.format("`%s` = ? AND `%s` = ?", COLUMN_IP, COLUMN_PORT),
+                new String[]{server.ip, server.port}, null, null, null, null);
 
-        // insert row
-        long id = db.insert(TABLE_SERVERS, null, values);
+        long id = -1;
 
-        // close db connection
-        db.close();
+        if (cursor == null) {
+            return id;
+        }
 
-        // return newly inserted row id
+        if (!cursor.moveToFirst()) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME, server.name);
+            values.put(COLUMN_IP, server.ip);
+            values.put(COLUMN_PORT, server.port);
+
+            id = db.insert(TABLE_SERVERS, null, values);
+
+            db.close();
+        }
         return id;
     }
 
@@ -97,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_SERVERS,
                 new String[]{COLUMN_ID, COLUMN_NAME, COLUMN_IP, COLUMN_PORT},
                 null,
-                null, null, null, null, null);
+                null, null, null, "id", null);
 //
 //        // Select All Query
 //        String selectQuery = "SELECT  * FROM " + Note.TABLE_NAME + " ORDER BY " +

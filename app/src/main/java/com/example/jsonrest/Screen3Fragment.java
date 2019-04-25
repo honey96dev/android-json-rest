@@ -1,7 +1,10 @@
 package com.example.jsonrest;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -11,13 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.TooManyListenersException;
 
 public class Screen3Fragment extends Fragment {
+    static final int ACTION_FIND_SERVER = 1;
 
-    ListView mLst;
-    ArrayList<ServerDataModel> mServers = new ArrayList<ServerDataModel>();
+    ListView mListView;
     Screen3ListAdapter mServersAdapter;
 
     public Screen3Fragment() {
@@ -29,12 +34,7 @@ public class Screen3Fragment extends Fragment {
      */
     public static Screen3Fragment newInstance() {
         Screen3Fragment fragment = new Screen3Fragment();
-//        fragment.mServers.add(new ServerDataModel(
-//                "Localhost",
-//                "192.168.200.16",
-//                "80"
-//        ));
-        fragment.mServers = G.dbHelper.getAllServers();
+        G.serverList = G.dbHelper.getAllServers();
 
         return fragment;
     }
@@ -47,12 +47,13 @@ public class Screen3Fragment extends Fragment {
         Button findButton = (Button) rootView.findViewById(R.id.find_button);
         Button addButton = (Button) rootView.findViewById(R.id.add_button);
         Button deleteAllButton = (Button) rootView.findViewById(R.id.delete_all_button);
-        mLst = (ListView) rootView.findViewById(R.id.lst);
+        mListView = (ListView) rootView.findViewById(R.id.list);
 
         findButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), FindServerActivity.class);
+                startActivityForResult(intent, ACTION_FIND_SERVER);
             }
         });
 
@@ -127,7 +128,11 @@ public class Screen3Fragment extends Fragment {
                             focusView.requestFocus();
                         } else {
                             model.id = String.valueOf(G.dbHelper.insertServer(model));
-                            mServers.add(model);
+                            if (model.id.equals("-1")) {
+                                Toast.makeText(getContext(), getString(R.string.error_replicated_server), Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            G.serverList.add(model);
                             mServersAdapter.notifyDataSetChanged();
                             alertDialog.cancel();
                         }
@@ -156,7 +161,7 @@ public class Screen3Fragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         G.dbHelper.deleteAll();
-                        mServers.clear();
+                        G.serverList.clear();
                         mServersAdapter.notifyDataSetChanged();
                     }
                 });
@@ -170,9 +175,36 @@ public class Screen3Fragment extends Fragment {
             }
         });
 
-        mServersAdapter = new Screen3ListAdapter(getContext(), mServers);
-        mLst.setAdapter(mServersAdapter);
+        SharedPreferences sp = getContext().getSharedPreferences(G.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        G.LAST_SERVER_INDEX = sp.getInt(G.SHARED_PREFERENCE_LAST_SERVER, -1);
+        if (G.LAST_SERVER_INDEX != -1) {
+            G.serverList.get(G.LAST_SERVER_INDEX).checked = true;
+        }
+
+        mServersAdapter = new Screen3ListAdapter(getContext(), G.serverList);
+        mListView.setAdapter(mServersAdapter);
+        mServersAdapter.notifyDataSetChanged();
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ACTION_FIND_SERVER:
+                mServersAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        SharedPreferences sp = getContext().getSharedPreferences(G.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(G.SHARED_PREFERENCE_LAST_SERVER, G.LAST_SERVER_INDEX);
+        editor.apply();
+
+        super.onDetach();
     }
 }

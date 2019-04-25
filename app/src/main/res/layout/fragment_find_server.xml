@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="top"
     android:orientation="vertical"
-    tools:context=".Screen1Fragment">
+    tools:context=".FindServerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,45 +15,36 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/find_button"
+            android:id="@+id/ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_search_white_24dp"
-            android:drawableLeft="@drawable/ic_search_white_24dp"
-            android:gravity="center_horizontal"
-            android:padding="@dimen/dimen_margin3"
-            android:text="@string/action_find"
-            android:textSize="@dimen/dimen_textSize6"
-            android:theme="@style/PrimaryButton" />
-
-
-        <Button
-            android:id="@+id/add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_add_white_24dp"
-            android:drawableLeft="@drawable/ic_add_white_24dp"
-            android:gravity="center_horizontal"
-            android:padding="@dimen/dimen_margin3"
+            android:drawableStart="@drawable/ic_send_white_24dp"
+            android:drawableLeft="@drawable/ic_send_white_24dp"
             android:text="@string/action_add"
             android:textSize="@dimen/dimen_textSize6"
             android:theme="@style/PrimaryButton" />
 
-
         <Button
-            android:id="@+id/delete_all_button"
+            android:id="@+id/refresh_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_delete_white_24dp"
-            android:drawableLeft="@drawable/ic_delete_white_24dp"
-            android:gravity="center_horizontal"
-            android:padding="@dimen/dimen_margin3"
-            android:text="@string/action_delete_all"
+            android:drawableStart="@drawable/ic_refresh_white_24dp"
+            android:drawableLeft="@drawable/ic_refresh_white_24dp"
+            android:text="@string/action_refresh"
             android:textSize="@dimen/dimen_textSize6"
-            android:theme="@style/ErrorButton"
-            android:tint="@color/white" />
+            android:theme="@style/PrimaryButton" />
 
+        <Button
+            android:id="@+id/toggle_select_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_check_white_24dp"
+            android:drawableLeft="@drawable/ic_play_arrow_white_24dp"
+            android:text="@string/action_toggle_check"
+            android:textSize="@dimen/dimen_textSize6"
+            android:theme="@style/PrimaryButton" />
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/list"

@@ -13,12 +13,13 @@
     <string name="title_name">Name</string>
     <string name="title_ip">IP</string>
     <string name="title_port">Port</string>
+    <string name="title_finding">Finding</string>
 
     <string name="description_name">Name: </string>
     <string name="description_ip">IP: </string>
     <string name="description_port">Port: </string>
 
-    <string name="default_port">80</string>
+    <string name="default_port">60</string>
 
     <string name="action_find">Find</string>
     <string name="action_add">Add</string>
@@ -26,6 +27,9 @@
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_load">Load</string>
+    <string name="action_update">Update</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_toggle_check">Toggle</string>
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
 
@@ -39,4 +43,5 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_ip">IP Address is invalid</string>
     <string name="error_invalid_port">Port is invalid</string>
+    <string name="error_replicated_server">Replicated server</string>
 </resources>

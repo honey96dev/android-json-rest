@@ -15,8 +15,8 @@ import android.widget.Toast;
 import java.util.concurrent.ExecutionException;
 
 public class Screen2Fragment extends Fragment {
-    EditText txt1;
-    EditText txt2;
+    EditText txt1View;
+    EditText txt2View;
 
     String toastMessage = "";
 
@@ -42,10 +42,10 @@ public class Screen2Fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_screen2, container, false);
 
         createUpdateUiHandler();
-        txt1 = (EditText) rootView.findViewById(R.id.txt1);
-        txt2 = (EditText) rootView.findViewById(R.id.txt2);
+        txt1View = (EditText) rootView.findViewById(R.id.txt1_edit_text);
+        txt2View = (EditText) rootView.findViewById(R.id.txt2_edit_text);
 
-        Button btn1 = (Button) rootView.findViewById(R.id.btn1);
+        Button btn1 = (Button) rootView.findViewById(R.id.button1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,12 +59,12 @@ public class Screen2Fragment extends Fragment {
                             updateUIHandler.sendMessage(message);
                             return;
                         }
-                        String myUrl = String.format("http://%s:%s/update.php", G.SERVER_IP, G.SERVER_PORT);
+                        String myUrl = String.format("http://%s:%s/one", G.SERVER_IP, G.SERVER_PORT);
                         String result;
                         HttpRequest request = new HttpRequest();
                         request.setMethod("POST");
                         request.setDoOutput(true);
-                        request.addParam("txt1", txt1.getText().toString());
+                        request.addParam("a", txt1View.getText().toString());
                         try {
                             result = request.execute(myUrl).get();
                             if (result != null) {
@@ -98,7 +98,7 @@ public class Screen2Fragment extends Fragment {
             }
         });
 
-        Button btn2 = (Button) rootView.findViewById(R.id.btn2);
+        Button btn2 = (Button) rootView.findViewById(R.id.button2);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,12 +112,12 @@ public class Screen2Fragment extends Fragment {
                             updateUIHandler.sendMessage(message);
                             return;
                         }
-                        String myUrl = String.format("http://%s:%s/update.php", G.SERVER_IP, G.SERVER_PORT);
+                        String myUrl = String.format("http://%s:%s/two", G.SERVER_IP, G.SERVER_PORT);
                         String result;
                         HttpRequest request = new HttpRequest();
                         request.setMethod("POST");
                         request.setDoOutput(true);
-                        request.addParam("txt2", txt2.getText().toString());
+                        request.addParam("a", txt2View.getText().toString());
                         try {
                             result = request.execute(myUrl).get();
                             if (result != null) {

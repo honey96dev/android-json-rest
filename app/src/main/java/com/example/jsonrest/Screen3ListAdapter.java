@@ -37,7 +37,7 @@ public class Screen3ListAdapter extends ArrayAdapter<ServerDataModel> {
     }
 
     public Screen3ListAdapter(Context context, ArrayList<ServerDataModel> data) {
-        super(context, R.layout.screen3_list_row_item, data);
+        super(context, R.layout.list_row_server, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -56,7 +56,7 @@ public class Screen3ListAdapter extends ArrayAdapter<ServerDataModel> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.screen3_list_row_item, parent, false);
+            convertView = inflater.inflate(R.layout.list_row_server, parent, false);
             viewHolder.radio = (RadioButton) convertView.findViewById(R.id.radio);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.name_edittext);
             viewHolder.txtIp = (TextView) convertView.findViewById(R.id.ip_edittext);
@@ -84,6 +84,7 @@ public class Screen3ListAdapter extends ArrayAdapter<ServerDataModel> {
                 Object object = getItem(position);
                 ServerDataModel dataModel = (ServerDataModel) object;
                 dataModel.checked = true;
+                G.LAST_SERVER_INDEX = position;
 
                 if (position == mLastSelected) {
                     return;

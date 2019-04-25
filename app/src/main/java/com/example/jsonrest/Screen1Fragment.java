@@ -16,17 +16,17 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutionException;
 
 public class Screen1Fragment extends Fragment {
-    EditText txt1;
-    EditText txt2;
-    EditText txt3;
-    EditText txt4;
-    EditText txt5;
+    EditText txt1View;
+    EditText txt2View;
+    EditText txt3View;
+    EditText txt4View;
+    EditText txt5View;
 
-    String txt1Text = "";
-    String txt2Text = "";
-    String txt3Text = "";
-    String txt4Text = "";
-    String txt5Text = "";
+    String txt1 = "";
+    String txt2 = "";
+    String txt3 = "";
+    String txt4 = "";
+    String txt5 = "";
 
     String toastMessage = "";
 
@@ -52,17 +52,17 @@ public class Screen1Fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_screen1, container, false);
 
         createUpdateUiHandler();
-        txt1 = (EditText) rootView.findViewById(R.id.txt1);
-        txt2 = (EditText) rootView.findViewById(R.id.txt2);
-        txt3 = (EditText) rootView.findViewById(R.id.txt3);
-        txt4 = (EditText) rootView.findViewById(R.id.txt4);
-        txt5 = (EditText) rootView.findViewById(R.id.txt5);
+        txt1View = (EditText) rootView.findViewById(R.id.txt1_edit_text);
+        txt2View = (EditText) rootView.findViewById(R.id.txt2_edit_text);
+        txt3View = (EditText) rootView.findViewById(R.id.txt3_edit_text);
+        txt4View = (EditText) rootView.findViewById(R.id.txt4_edit_text);
+        txt5View = (EditText) rootView.findViewById(R.id.txt5_edit_text);
 
         Message message = new Message();
         message.what = MESSAGE_UPDATE_TEXT_CHILD_THREAD;
         updateUIHandler.sendMessage(message);
 
-        Button btn = (Button) rootView.findViewById(R.id.btn);
+        Button btn = (Button) rootView.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,7 @@ public class Screen1Fragment extends Fragment {
                             updateUIHandler.sendMessage(message);
                             return;
                         }
-                        String myUrl = String.format("http://%s:%s/test.json", G.SERVER_IP, G.SERVER_PORT);
+                        String myUrl = String.format("http://%s:%s/status", G.SERVER_IP, G.SERVER_PORT);
                         //String to place our result in
                         String result;
                         //Instantiate new instance of our class
@@ -97,11 +97,11 @@ public class Screen1Fragment extends Fragment {
                             JSONObject app = json.getJSONObject("AppName");
                             JSONObject stats = app.getJSONObject("stats");
 
-                            txt1Text = stats.getString("state1");
-                            txt2Text = stats.getString("state2");
-                            txt3Text = stats.getString("state3");
-                            txt4Text = stats.getString("state4");
-                            txt5Text = stats.getString("state5");
+                            txt1 = stats.getString("state1");
+                            txt2 = stats.getString("state2");
+                            txt3 = stats.getString("state3");
+                            txt4 = stats.getString("state4");
+                            txt5 = stats.getString("state5");
 
                             Message message = new Message();
                             message.what = MESSAGE_SHOW_TOAST_THREAD;
@@ -142,11 +142,11 @@ public class Screen1Fragment extends Fragment {
                     // Means the message is sent from child thread.
                     switch (msg.what) {
                         case MESSAGE_UPDATE_TEXT_CHILD_THREAD:
-                            txt1.setText(txt1Text);
-                            txt2.setText(txt2Text);
-                            txt3.setText(txt3Text);
-                            txt4.setText(txt4Text);
-                            txt5.setText(txt5Text);
+                            txt1View.setText(txt1);
+                            txt2View.setText(txt2);
+                            txt3View.setText(txt3);
+                            txt4View.setText(txt4);
+                            txt5View.setText(txt5);
                             break;
                         case MESSAGE_SHOW_TOAST_THREAD:
                             Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
