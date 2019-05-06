@@ -149,6 +149,7 @@ public class FindServerFragment extends Fragment {
                 message = new Message();
                 message.what = MESSAGE_HIDE_PROGRESS_DIALOG_THREAD;
                 updateUIHandler.sendMessage(message);
+                mServersAdapter.notifyDataSetChanged();
             }
         };
         thread.start();
